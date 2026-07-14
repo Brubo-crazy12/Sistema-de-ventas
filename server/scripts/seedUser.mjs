@@ -8,7 +8,7 @@ function loadEnv() {
     const raw = readFileSync(".env", "utf8");
     for (const line of raw.split("\n")) {
       const m = line.match(/^([A-Z0-9_]+)=(.*)$/i);
-      if (m) process.env[m[1]] = m[2].trim();
+      if (m && !process.env[m[1]]) process.env[m[1]] = m[2].trim();
     }
   } catch {}
 }

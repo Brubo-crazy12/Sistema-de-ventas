@@ -20,14 +20,7 @@ const handler = (req: VercelRequest, res: VercelResponse) => {
       userId: req.headers["x-user-id"]
         ? Number(req.headers["x-user-id"])
         : undefined,
-      userRole: req.headers["x-user-role"] as string | undefined,
     }),
-    onError:
-      process.env.NODE_ENV === "development"
-        ? ({ error }) => {
-            console.error("tRPC Error:", error);
-          }
-        : undefined,
   }).then((fetchRes) => {
     res.status(fetchRes.status);
     fetchRes.headers.forEach((value, key) => {

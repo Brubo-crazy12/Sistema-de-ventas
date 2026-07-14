@@ -6,7 +6,6 @@ import cors from "cors";
 import helmet from "helmet";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { appRouter } from "./presentation/routers/index.js";
-import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,14 +22,13 @@ app.use(
       const userId = req.headers["x-user-id"]
         ? Number(req.headers["x-user-id"])
         : undefined;
-      const userRole = req.headers["x-user-role"] as string | undefined;
-      return { userId, userRole };
+      return { userId };
     },
   })
 );
 
 app.get("/health", (_req, res) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() });
+  res.json({ status: "ok" });
 });
 
 app.listen(PORT, () => {

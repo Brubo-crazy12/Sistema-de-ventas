@@ -1,18 +1,14 @@
 import { t } from "../tRPC.js";
-import { productsRouter } from "./products.js";
-import { categoriesRouter } from "./categories.js";
-import { cartRouter } from "./cart.js";
-import { ordersRouter } from "./orders.js";
-import { investmentsRouter } from "./investments.js";
-import { analyticsRouter } from "./analytics.js";
+import { salesRouter } from "./sales.js";
+import { reinvestmentsRouter } from "./reinvestments.js";
+import { settingsRouter } from "./settings.js";
+import { dashboardRouter } from "./dashboard.js";
 
 export const appRouter = t.router({
-  products: productsRouter,
-  categories: categoriesRouter,
-  cart: cartRouter,
-  orders: ordersRouter,
-  investments: investmentsRouter,
-  analytics: analyticsRouter,
+  sales: salesRouter,
+  reinvestments: reinvestmentsRouter,
+  settings: settingsRouter,
+  dashboard: dashboardRouter,
 });
 
 export type AppRouter = typeof appRouter;

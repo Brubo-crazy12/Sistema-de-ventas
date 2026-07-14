@@ -5,14 +5,8 @@
   "outputDirectory": "client/dist",
   "framework": "vite",
   "rewrites": [
-    {
-      "source": "/api/trpc/(.*)",
-      "destination": "/api/trpc/$1"
-    },
-    {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
-    }
+    { "source": "/api/trpc/(.*)", "destination": "/api/trpc/$1" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
   "headers": [
     {

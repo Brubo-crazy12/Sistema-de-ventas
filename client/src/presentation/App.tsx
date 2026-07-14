@@ -19,11 +19,12 @@ export default function App() {
   return (
     <div className="min-h-screen" style={{ background: "#09090B" }}>
       <nav
-        className="flex items-center gap-1 px-4 py-2 border-b sticky top-0 z-50"
-        style={{ background: "#09090B", borderColor: "#27272A" }}
+        className="flex items-center gap-1 px-4 py-2 border-b sticky top-0 z-50 backdrop-blur"
+        style={{ background: "#0A0A0BEE", borderColor: "#26262A" }}
       >
-        <span className="text-lg font-bold mr-4" style={{ color: "#3B82F6" }}>
-          HH
+        <span className="text-lg font-bold mr-4 tracking-tight">
+          <span style={{ color: "#EF4444" }}>H</span>
+          <span style={{ color: "#FAFAFA" }}>H</span>
         </span>
         {TABS.map((t) => (
           <button
@@ -31,7 +32,7 @@ export default function App() {
             onClick={() => setTab(t.id)}
             className="px-3 py-1.5 text-sm rounded-lg transition-colors"
             style={{
-              background: tab === t.id ? "#3B82F6" : "transparent",
+              background: tab === t.id ? "#EF4444" : "transparent",
               color: tab === t.id ? "#fff" : "#A1A1AA",
             }}
           >

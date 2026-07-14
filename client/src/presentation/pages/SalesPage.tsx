@@ -128,7 +128,7 @@ export function SalesPage({ category }: Props) {
           )}
         </div>
         <div className="flex gap-2 mt-3">
-          <button onClick={handleSubmit} className="px-4 py-2 text-sm font-medium text-white rounded-lg" style={{ background: "#3B82F6" }}>
+          <button onClick={handleSubmit} className="px-4 py-2 text-sm font-medium text-white rounded-lg" style={{ background: "#EF4444" }}>
             {editingId ? "Actualizar" : "Registrar"}
           </button>
           {editingId && (

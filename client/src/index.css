@@ -3,24 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --bg: #09090B;
-  --surface: #18181B;
-  --surface2: #111113;
-  --border: #27272A;
-  --accent: #3B82F6;
+  --bg: #0A0A0B;
+  --surface: #151517;
+  --surface2: #0F0F11;
+  --border: #26262A;
+  --accent: #EF4444;
+  --accent-dim: #EF444420;
   --green: #22C55E;
+  --green-dim: #22C5520;
   --red: #EF4444;
   --amber: #F59E0B;
   --text: #FAFAFA;
   --text2: #A1A1AA;
-  --text3: #71717A;
+  --text3: #6B6B70;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: var(--bg);
+  background:
+    radial-gradient(1200px 600px at 100% -10%, #EF44440A, transparent),
+    var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
@@ -34,10 +38,12 @@ input, select, textarea {
   font-size: 14px;
   outline: none;
   width: 100%;
+  transition: border-color 0.15s;
 }
 
 input:focus, select:focus, textarea:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
 button {
@@ -46,10 +52,19 @@ button {
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
-  transition: opacity 0.15s;
+  transition: opacity 0.15s, transform 0.1s;
 }
 
 button:hover { opacity: 0.9; }
+button:active { transform: scale(0.98); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: #3A3A40; }
 
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }

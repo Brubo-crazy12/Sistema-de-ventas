@@ -85,7 +85,7 @@ export function InventoryPage() {
             key={tab}
             onClick={() => setInvTab(tab)}
             className="px-3 py-1.5 text-xs rounded-lg capitalize"
-            style={{ background: invTab === tab ? "#3B82F6" : "#18181B", color: invTab === tab ? "#fff" : "#A1A1AA" }}
+            style={{ background: invTab === tab ? "#EF4444" : "#18181B", color: invTab === tab ? "#fff" : "#A1A1AA" }}
           >
             {tab}
           </button>
@@ -95,7 +95,7 @@ export function InventoryPage() {
       <div className="rounded-xl border p-4" style={{ background: "#18181B", borderColor: "#27272A" }}>
         <h2 className="text-xs font-semibold mb-3" style={{ color: "#71717A" }}>RECUPERACION</h2>
         <div className="w-full h-2 rounded-full mb-3" style={{ background: "#27272A" }}>
-          <div className="h-full rounded-full transition-all" style={{ width: `${recovered}%`, background: recovered >= 100 ? "#22C55E" : "#3B82F6" }} />
+          <div className="h-full rounded-full transition-all" style={{ width: `${recovered}%`, background: recovered >= 100 ? "#22C55E" : "#EF4444" }} />
         </div>
         <div className="grid grid-cols-3 gap-4 text-center">
           <div>
@@ -134,7 +134,7 @@ export function InventoryPage() {
             )}
             <input type="number" placeholder="Costo" value={form.amount || ""} onChange={(e) => setForm({ ...form, amount: Number(e.target.value) })} />
             <div className="flex gap-2">
-              <button onClick={handleSubmit} className="px-4 py-2 text-xs font-medium text-white rounded-lg" style={{ background: "#3B82F6" }}>
+              <button onClick={handleSubmit} className="px-4 py-2 text-xs font-medium text-white rounded-lg" style={{ background: "#EF4444" }}>
                 {editingId ? "Actualizar" : "Guardar"}
               </button>
               {editingId && (
@@ -174,7 +174,7 @@ export function InventoryPage() {
           {invTab === "perfumes" ? (
             <div className="space-y-3">
               <div className="text-center">
-                <div className="text-3xl font-bold" style={{ color: "#3B82F6" }}>{(stock as any).ml || 0}</div>
+                <div className="text-3xl font-bold" style={{ color: "#EF4444" }}>{(stock as any).ml || 0}</div>
                 <div className="text-xs" style={{ color: "#71717A" }}>ML esencia</div>
               </div>
               <div className="space-y-2">
@@ -194,7 +194,7 @@ export function InventoryPage() {
           ) : (
             <div className="space-y-3">
               <div className="text-center">
-                <div className="text-3xl font-bold" style={{ color: "#3B82F6" }}>{(stock as any).current || 0}</div>
+                <div className="text-3xl font-bold" style={{ color: "#EF4444" }}>{(stock as any).current || 0}</div>
                 <div className="text-xs" style={{ color: "#71717A" }}>Unidades</div>
               </div>
               <div className="space-y-2">

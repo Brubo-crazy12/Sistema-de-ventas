@@ -33,9 +33,9 @@ export function Header({ onOpenMobile }: Props) {
         </button>
         <div
           className="w-9 h-9 rounded-full gradient-avatar flex items-center justify-center text-white text-sm font-semibold"
-          title={user.name}
+          title={user?.name ?? ""}
         >
-          {user.initials}
+          {user?.initials ?? ""}
         </div>
       </div>
     </header>

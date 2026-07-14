@@ -10,6 +10,16 @@ export const trpcClient = trpc.createClient({
     httpBatchLink({
       url: import.meta.env.VITE_API_URL || "/api/trpc",
       transformer: superjson,
+      headers: () => {
+        try {
+          const raw = localStorage.getItem("monitor_user");
+          if (!raw) return {};
+          const u = JSON.parse(raw);
+          return u?.id ? { "x-user-id": String(u.id) } : {};
+        } catch {
+          return {};
+        }
+      },
     }),
   ],
 });

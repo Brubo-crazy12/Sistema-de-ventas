@@ -1,13 +1,21 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 
+export interface AuthUser {
+  id: number;
+  name: string;
+  email: string;
+  initials: string;
+}
+
 interface AuthState {
   authed: boolean;
-  user: { name: string; initials: string };
-  login: (email: string) => void;
+  user: AuthUser | null;
+  login: (u: { id: number; name: string; email: string }) => void;
   logout: () => void;
 }
 
 const Ctx = createContext<AuthState | null>(null);
+const STORAGE_KEY = "monitor_user";
 
 function initialsOf(name: string) {
   return name
@@ -18,22 +26,38 @@ function initialsOf(name: string) {
     .toUpperCase();
 }
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [authed, setAuthed] = useState(false);
-  const [name, setName] = useState("Alex Found");
+function load(): { user: AuthUser | null; authed: boolean } {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { user: null, authed: false };
+    const u = JSON.parse(raw);
+    if (!u?.id) return { user: null, authed: false };
+    return { user: { ...u, initials: initialsOf(u.name) }, authed: true };
+  } catch {
+    return { user: null, authed: false };
+  }
+}
 
-  const login = (email: string) => {
-    const n = email.split("@")[0].replace(/[._]/g, " ");
-    const pretty = n.replace(/\b\w/g, (c) => c.toUpperCase());
-    setName(pretty || "Alex Found");
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const initial = load();
+  const [authed, setAuthed] = useState(initial.authed);
+  const [user, setUser] = useState<AuthUser | null>(initial.user);
+
+  const login = (u: { id: number; name: string; email: string }) => {
+    const full: AuthUser = { ...u, initials: initialsOf(u.name) };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(full));
+    setUser(full);
     setAuthed(true);
   };
-  const logout = () => setAuthed(false);
+
+  const logout = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    setUser(null);
+    setAuthed(false);
+  };
 
   return (
-    <Ctx.Provider
-      value={{ authed, user: { name, initials: initialsOf(name) }, login, logout }}
-    >
+    <Ctx.Provider value={{ authed, user, login, logout }}>
       {children}
     </Ctx.Provider>
   );

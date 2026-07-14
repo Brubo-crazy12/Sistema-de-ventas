@@ -4,8 +4,10 @@ import { ordersRouter } from "./orders.js";
 import { investmentsRouter } from "./investments.js";
 import { settingsRouter } from "./settings.js";
 import { dashboardRouter } from "./dashboard.js";
+import { authRouter } from "./auth.js";
 
 export const appRouter = t.router({
+  auth: authRouter,
   products: productsRouter,
   orders: ordersRouter,
   investments: investmentsRouter,

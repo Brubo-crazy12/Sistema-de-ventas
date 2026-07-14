@@ -1,6 +1,13 @@
 import pg from "pg";
 import { readFileSync } from "node:fs";
+import { scryptSync, randomBytes } from "node:crypto";
 const { Pool } = pg;
+
+function hashPassword(password) {
+  const salt = randomBytes(16).toString("hex");
+  const hash = scryptSync(password, salt, 64).toString("hex");
+  return `${salt}:${hash}`;
+}
 
 function loadEnv() {
   try {
@@ -48,7 +55,8 @@ const investments = [
 
 async function main() {
   await pool.query(
-    "INSERT INTO users (id, email, name, password_hash) VALUES (1, 'admin@monitor.local', 'Admin', 'seed') ON CONFLICT (id) DO NOTHING;"
+    "INSERT INTO users (id, email, name, password_hash) VALUES (1, 'demo@monitor.io', 'Demo', $1) ON CONFLICT (id) DO NOTHING;",
+    [hashPassword("demo1234")]
   );
   await pool.query(
     "INSERT INTO business_settings (user_id, business_name, email, currency) VALUES (1, 'Mi Emprendimiento', 'hola@empredimiento.io', 'MXN') ON CONFLICT (user_id) DO NOTHING;"

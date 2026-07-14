@@ -58,6 +58,7 @@ async function main() {
     "INSERT INTO users (id, email, name, password_hash) VALUES (1, 'demo@monitor.io', 'Demo', $1) ON CONFLICT (id) DO NOTHING;",
     [hashPassword("demo1234")]
   );
+  await pool.query("SELECT setval('users_id_seq', (SELECT COALESCE(MAX(id), 1) FROM users));");
   await pool.query(
     "INSERT INTO business_settings (user_id, business_name, email, currency) VALUES (1, 'Mi Emprendimiento', 'hola@empredimiento.io', 'MXN') ON CONFLICT (user_id) DO NOTHING;"
   );

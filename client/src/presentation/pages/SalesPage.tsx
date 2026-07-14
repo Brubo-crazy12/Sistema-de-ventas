@@ -101,35 +101,35 @@ export function SalesPage({ category }: Props) {
           {editingId ? "EDITAR VENTA" : "NUEVA VENTA"}
         </h2>
         <div className="flex flex-wrap gap-3">
-          <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="w-40" />
-          <input placeholder="Cliente" value={form.client} onChange={(e) => setForm({ ...form, client: e.target.value })} className="w-40" />
+          <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="w-full sm:w-40" />
+          <input placeholder="Cliente" value={form.client} onChange={(e) => setForm({ ...form, client: e.target.value })} className="w-full sm:w-40" />
           {isPerfume ? (
             <>
-              <input placeholder="Perfume" value={form.perfume} onChange={(e) => setForm({ ...form, perfume: e.target.value })} className="w-40" />
-              <select value={form.size} onChange={(e) => handleSizeChange(e.target.value)} className="w-36">
+              <input placeholder="Perfume" value={form.perfume} onChange={(e) => setForm({ ...form, perfume: e.target.value })} className="w-full sm:w-40" />
+              <select value={form.size} onChange={(e) => handleSizeChange(e.target.value)} className="w-full sm:w-36">
                 {PERFUME_SIZES.map((sz: string) => (
                   <option key={sz} value={sz}>{sz}</option>
                 ))}
               </select>
               {form.size === "Relleno" && (
-                <input type="number" placeholder="ML" value={form.refillMl || ""} onChange={(e) => setForm({ ...form, refillMl: Number(e.target.value) })} className="w-24" />
+                <input type="number" placeholder="ML" value={form.refillMl || ""} onChange={(e) => setForm({ ...form, refillMl: Number(e.target.value) })} className="w-full sm:w-24" />
               )}
             </>
           ) : (
             <>
-              <input placeholder="Detalle" value={form.item} onChange={(e) => setForm({ ...form, item: e.target.value })} className="w-40" />
-              <input type="number" placeholder="Cant." value={form.qty || ""} onChange={(e) => setForm({ ...form, qty: Number(e.target.value) })} className="w-24" />
+              <input placeholder="Detalle" value={form.item} onChange={(e) => setForm({ ...form, item: e.target.value })} className="w-full sm:w-40" />
+              <input type="number" placeholder="Cant." value={form.qty || ""} onChange={(e) => setForm({ ...form, qty: Number(e.target.value) })} className="w-full sm:w-24" />
             </>
           )}
-          <input type="number" placeholder="Precio" value={form.price || ""} onChange={(e) => setForm({ ...form, price: Number(e.target.value) })} className="w-28" />
-          <select value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value as any })} className="w-32">
+          <input type="number" placeholder="Precio" value={form.price || ""} onChange={(e) => setForm({ ...form, price: Number(e.target.value) })} className="w-full sm:w-28" />
+          <select value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value as any })} className="w-full sm:w-32">
             <option value="pagado">Pagado</option>
             <option value="pendiente">Pendiente</option>
           </select>
           {form.status === "pendiente" && (
             <>
-              <input type="number" placeholder="Anticipo" value={form.paidAmount || ""} onChange={(e) => setForm({ ...form, paidAmount: Number(e.target.value) })} className="w-28" />
-              <input type="date" value={form.dueDate} onChange={(e) => setForm({ ...form, dueDate: e.target.value })} className="w-40" />
+              <input type="number" placeholder="Anticipo" value={form.paidAmount || ""} onChange={(e) => setForm({ ...form, paidAmount: Number(e.target.value) })} className="w-full sm:w-28" />
+              <input type="date" value={form.dueDate} onChange={(e) => setForm({ ...form, dueDate: e.target.value })} className="w-full sm:w-40" />
             </>
           )}
         </div>
@@ -220,3 +220,4 @@ export function SalesPage({ category }: Props) {
     </div>
   );
 }
+

@@ -116,26 +116,26 @@ export function InventoryPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="rounded-xl border p-4" style={{ background: "#18181B", borderColor: "#27272A" }}>
           <h2 className="text-xs font-semibold mb-3" style={{ color: "#A1A1AA" }}>{editingId ? "EDITAR COMPRA" : "NUEVA COMPRA"}</h2>
           <div className="space-y-2">
-            <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
-            <input placeholder="Detalle" value={form.models} onChange={(e) => setForm({ ...form, models: e.target.value })} />
+            <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="w-full" />
+            <input placeholder="Detalle" value={form.models} onChange={(e) => setForm({ ...form, models: e.target.value })} className="w-full" />
             {invTab === "perfumes" ? (
               <>
-                <input type="number" placeholder="ML esencia" value={form.qtyMl || ""} onChange={(e) => setForm({ ...form, qtyMl: Number(e.target.value) })} />
+                <input type="number" placeholder="ML esencia" value={form.qtyMl || ""} onChange={(e) => setForm({ ...form, qtyMl: Number(e.target.value) })} className="w-full" />
                 <div className="grid grid-cols-2 gap-2">
-                  <input type="number" placeholder="+10ml" value={form.qty10 || ""} onChange={(e) => setForm({ ...form, qty10: Number(e.target.value) })} />
-                  <input type="number" placeholder="+30ml" value={form.qty30 || ""} onChange={(e) => setForm({ ...form, qty30: Number(e.target.value) })} />
-                  <input type="number" placeholder="+60ml" value={form.qty60 || ""} onChange={(e) => setForm({ ...form, qty60: Number(e.target.value) })} />
-                  <input type="number" placeholder="+100ml" value={form.qty100 || ""} onChange={(e) => setForm({ ...form, qty100: Number(e.target.value) })} />
+                  <input type="number" placeholder="+10ml" value={form.qty10 || ""} onChange={(e) => setForm({ ...form, qty10: Number(e.target.value) })} className="w-full" />
+                  <input type="number" placeholder="+30ml" value={form.qty30 || ""} onChange={(e) => setForm({ ...form, qty30: Number(e.target.value) })} className="w-full" />
+                  <input type="number" placeholder="+60ml" value={form.qty60 || ""} onChange={(e) => setForm({ ...form, qty60: Number(e.target.value) })} className="w-full" />
+                  <input type="number" placeholder="+100ml" value={form.qty100 || ""} onChange={(e) => setForm({ ...form, qty100: Number(e.target.value) })} className="w-full" />
                 </div>
               </>
             ) : (
-              <input type="number" placeholder="Unidades" value={form.qty || ""} onChange={(e) => setForm({ ...form, qty: Number(e.target.value) })} />
+              <input type="number" placeholder="Unidades" value={form.qty || ""} onChange={(e) => setForm({ ...form, qty: Number(e.target.value) })} className="w-full" />
             )}
-            <input type="number" placeholder="Costo" value={form.amount || ""} onChange={(e) => setForm({ ...form, amount: Number(e.target.value) })} />
+            <input type="number" placeholder="Costo" value={form.amount || ""} onChange={(e) => setForm({ ...form, amount: Number(e.target.value) })} className="w-full" />
             <div className="flex gap-2">
               <button onClick={handleSubmit} className="px-4 py-2 text-xs font-medium text-white rounded-lg" style={{ background: "#EF4444" }}>
                 {editingId ? "Actualizar" : "Guardar"}
@@ -219,3 +219,4 @@ export function InventoryPage() {
     </div>
   );
 }
+

@@ -7,6 +7,7 @@ import {
   ProfitIcon,
   InvestmentIcon,
   SettingsIcon,
+  Shield,
   Diamond,
   Logout,
   X,
@@ -29,7 +30,7 @@ interface Props {
 }
 
 export function Sidebar({ collapsed, mobileOpen, onCloseMobile }: Props) {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-soft ${
@@ -73,6 +74,12 @@ export function Sidebar({ collapsed, mobileOpen, onCloseMobile }: Props) {
               </NavLink>
             );
           })}
+          {user?.role === "admin" && (
+            <NavLink to="/admin" onClick={onCloseMobile} className={linkClass} title={collapsed ? "Administración" : undefined}>
+              <Shield size={20} className="shrink-0" />
+              {!collapsed && <span className="font-medium">Administración</span>}
+            </NavLink>
+          )}
         </nav>
 
         <div className="px-3 pb-4" style={{ borderTop: "1px solid #1e1e2e" }}>

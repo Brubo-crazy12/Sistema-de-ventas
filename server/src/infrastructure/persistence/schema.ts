@@ -11,12 +11,14 @@ import {
 export const categoryEnum = pgEnum("category", ["Sudaderas", "Perfumes", "Accesorios"]);
 export const orderStatusEnum = pgEnum("order_status", ["Pagado", "Pendiente", "Adeudo"]);
 export const stockStatusEnum = pgEnum("stock_status", ["En stock", "Stock bajo", "Sin stock"]);
+export const roleEnum = pgEnum("role", ["admin", "user"]);
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   email: text("email").notNull().unique(),
   name: text("name").notNull(),
   passwordHash: text("password_hash").notNull(),
+  role: roleEnum("role").notNull().default("user"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

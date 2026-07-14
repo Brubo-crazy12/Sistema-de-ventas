@@ -27,7 +27,15 @@ export function Login() {
         mode === "login"
           ? await loginMut.mutateAsync({ email, password })
           : await registerMut.mutateAsync({ name, email, password });
-      login({ id: result.id, name: result.name, email: result.email });
+      login(
+        {
+          id: result.user.id,
+          name: result.user.name,
+          email: result.user.email,
+          role: result.role,
+        },
+        result.token
+      );
       navigate("/");
     } catch (err: any) {
       setError(err?.message || "Ocurrió un error. Intenta de nuevo.");

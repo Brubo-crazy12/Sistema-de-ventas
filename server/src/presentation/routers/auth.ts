@@ -1,8 +1,14 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { t, publicProcedure, userRepository } from "../tRPC.js";
+import { t, publicProcedure, protectedProcedure, userRepository } from "../tRPC.js";
 import { User } from "../../domain/entities/User.js";
 import { hashPassword, verifyPassword } from "../../infrastructure/security/password.js";
+import { signToken } from "../../infrastructure/security/session.js";
+
+function isBootstrapAdmin(email: string): boolean {
+  const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  return Boolean(adminEmail && email.trim().toLowerCase() === adminEmail);
+}
 
 export const authRouter = t.router({
   register: publicProcedure
@@ -21,13 +27,20 @@ export const authRouter = t.router({
           message: "Este email ya está registrado",
         });
       }
+
+      const userCount = await userRepository.count();
+      const role: "admin" | "user" =
+        userCount === 0 || isBootstrapAdmin(input.email) ? "admin" : "user";
+
       const user = User.create({
         name: input.name,
         email: input.email,
         passwordHash: hashPassword(input.password),
+        role,
       });
       const saved = await userRepository.save(user);
-      return saved.toJSON();
+      const token = signToken({ userId: saved.id, role: saved.role });
+      return { user: saved.toJSON(), token, role: saved.role };
     }),
 
   login: publicProcedure
@@ -45,6 +58,15 @@ export const authRouter = t.router({
           message: "Credenciales inválidas",
         });
       }
-      return user.toJSON();
+      const token = signToken({ userId: user.id, role: user.role });
+      return { user: user.toJSON(), token, role: user.role };
     }),
+
+  me: protectedProcedure.query(async ({ ctx }) => {
+    const user = await userRepository.findById(ctx.userId);
+    if (!user) {
+      throw new TRPCError({ code: "NOT_FOUND", message: "Usuario no encontrado" });
+    }
+    return user.toJSON();
+  }),
 });

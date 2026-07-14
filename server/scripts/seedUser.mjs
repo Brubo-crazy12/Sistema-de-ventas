@@ -30,12 +30,13 @@ function hashPassword(password) {
 async function main() {
   const hash = hashPassword("demo1234");
   await pool.query(
-    `INSERT INTO users (id, email, name, password_hash)
-     VALUES (1, 'demo@monitor.io', 'Demo', $1)
+    `INSERT INTO users (id, email, name, password_hash, role)
+     VALUES (1, 'demo@monitor.io', 'Demo', $1, 'admin')
      ON CONFLICT (id) DO UPDATE SET
-       password_hash = EXCLUDED.password_hash,
-       email = EXCLUDED.email,
-       name = EXCLUDED.name;`,
+        password_hash = EXCLUDED.password_hash,
+        email = EXCLUDED.email,
+        name = EXCLUDED.name,
+        role = 'admin';`,
     [hash]
   );
   console.log("Usuario listo: demo@monitor.io / demo1234");

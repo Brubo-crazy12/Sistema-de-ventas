@@ -31,6 +31,14 @@ export function Header({ onOpenMobile }: Props) {
           <Bell size={20} />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full" style={{ background: "#ef4444" }} />
         </button>
+        {user?.role === "admin" && (
+          <span
+            className="hidden sm:inline px-2.5 py-1 rounded-full text-xs font-medium"
+            style={{ color: "#a78bfa", background: "rgba(139,92,246,0.15)" }}
+          >
+            Admin
+          </span>
+        )}
         <div
           className="w-9 h-9 rounded-full gradient-avatar flex items-center justify-center text-white text-sm font-semibold"
           title={user?.name ?? ""}

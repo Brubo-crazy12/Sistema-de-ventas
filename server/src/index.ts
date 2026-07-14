@@ -5,6 +5,7 @@ import cors from "cors";
 import helmet from "helmet";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { appRouter } from "./presentation/routers/index.js";
+import { getTokenFromHeaders, verifyToken } from "./infrastructure/security/session.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,10 +19,12 @@ app.use(
   createExpressMiddleware({
     router: appRouter,
     createContext: ({ req }) => {
-      const userId = req.headers["x-user-id"]
-        ? Number(req.headers["x-user-id"])
-        : undefined;
-      return { userId };
+      const token = getTokenFromHeaders(req.headers as Record<string, any>);
+      const session = token ? verifyToken(token) : null;
+      return {
+        userId: session?.userId ?? 0,
+        role: (session?.role ?? "") as "admin" | "user" | "",
+      };
     },
   })
 );

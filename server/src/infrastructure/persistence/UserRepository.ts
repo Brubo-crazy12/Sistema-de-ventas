@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { db } from "../config/database.js";
 import { users } from "./schema.js";
 import { IUserRepository } from "../../domain/interfaces/IUserRepository.js";
@@ -22,8 +22,18 @@ export class UserRepository implements IUserRepository {
   async save(user: User): Promise<User> {
     const rows = await db
       .insert(users)
-      .values({ email: user.email, name: user.name, passwordHash: user.passwordHash })
+      .values({
+        email: user.email,
+        name: user.name,
+        passwordHash: user.passwordHash,
+        role: user.role,
+      })
       .returning();
     return User.fromPersistence({ ...rows[0], createdAt: rows[0].createdAt ?? new Date() });
+  }
+
+  async count(): Promise<number> {
+    const rows = await db.select({ value: sql<number>`count(*)` }).from(users);
+    return Number(rows[0]?.value ?? 0);
   }
 }

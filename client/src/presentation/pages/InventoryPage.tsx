@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { trpc } from "../../infrastructure/api/trpc";
 import { type SaleCategory, type BusinessSettings, type Reinvestment, fmt, today } from "../../domain/types";
+import { PageHeader } from "../components/PageHeader";
 
 type InvTab = "sudaderas" | "perfumes" | "accesorios";
 
@@ -79,6 +80,8 @@ export function InventoryPage() {
 
   return (
     <div className="space-y-6">
+      <PageHeader title="Inventario" subtitle="Compras, recuperación y stock" />
+
       <div className="flex gap-1">
         {(["sudaderas", "perfumes", "accesorios"] as InvTab[]).map((tab) => (
           <button

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { trpc } from "../../infrastructure/api/trpc";
 import { type SaleCategory, type Sale, type BusinessSettings, PERFUME_SIZES, calcCost, getPriceForSize, fmt, today } from "../../domain/types";
+import { PageHeader } from "../components/PageHeader";
 
 interface Props {
   category: SaleCategory;
@@ -90,7 +91,12 @@ export function SalesPage({ category }: Props) {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border p-4" style={{ background: "#18181B", borderColor: "#27272A" }}>
+      <PageHeader
+        title={category.charAt(0).toUpperCase() + category.slice(1)}
+        subtitle="Registro y seguimiento de ventas"
+      />
+
+      <div className="rounded-xl border p-4 card">
         <h2 className="text-sm font-semibold mb-4" style={{ color: "#A1A1AA" }}>
           {editingId ? "EDITAR VENTA" : "NUEVA VENTA"}
         </h2>

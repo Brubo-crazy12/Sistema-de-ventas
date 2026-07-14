@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { trpc } from "../../infrastructure/api/trpc";
 import { fmt, type Sale, type SaleCategory } from "../../domain/types";
+import { PageHeader } from "../components/PageHeader";
 
 const CATS: { id: SaleCategory; label: string }[] = [
   { id: "sudaderas", label: "Sudaderas" },
@@ -49,6 +50,8 @@ export function Dashboard() {
 
   return (
     <div className="space-y-6">
+      <PageHeader title="Inicio" subtitle="Resumen general del negocio" />
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map((c) => (
           <div key={c.label} className="card p-5 relative overflow-hidden">

@@ -4,7 +4,7 @@ import { appRouter } from "../../server/src/presentation/routers/index.js";
 import { getTokenFromHeaders, verifyToken } from "../../server/src/infrastructure/security/session.js";
 
 export const config = {
-  runtime: "nodejs20.x",
+  runtime: "nodejs",
 };
 
 const handler = (req: VercelRequest, res: VercelResponse) => {

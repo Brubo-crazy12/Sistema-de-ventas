@@ -1,6 +1,13 @@
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "";
+// Orden de prioridad para el secreto de firma:
+// 1) JWT_SECRET explícito (recomendado en producción)
+// 2) DATABASE_URL (siempre presente en Vercel) como fallback estable
+// 3) secreto inseguro solo en desarrollo local
+const JWT_SECRET =
+  process.env.JWT_SECRET ||
+  process.env.DATABASE_URL ||
+  (process.env.NODE_ENV !== "production" ? "dev-insecure-secret-change-me" : "");
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "7d";
 
 export interface SessionPayload {
@@ -10,11 +17,8 @@ export interface SessionPayload {
 
 function secret(): string {
   if (JWT_SECRET) return JWT_SECRET;
-  if (process.env.NODE_ENV !== "production") {
-    return "dev-insecure-secret-change-me";
-  }
   throw new Error(
-    "JWT_SECRET no está configurado. Defínelo en las variables de entorno (Vercel o server/.env)."
+    "JWT_SECRET no está configurado y no hay DATABASE_URL disponible. Defínelo en las variables de entorno (Vercel o server/.env)."
   );
 }
 

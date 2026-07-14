@@ -5,8 +5,10 @@ import { investmentsRouter } from "./investments.js";
 import { settingsRouter } from "./settings.js";
 import { dashboardRouter } from "./dashboard.js";
 import { authRouter } from "./auth.js";
+import { systemRouter } from "./system.js";
 
 export const appRouter = t.router({
+  system: systemRouter,
   auth: authRouter,
   products: productsRouter,
   orders: ordersRouter,

@@ -1,0 +1,19 @@
+{
+  "name": "sistema-de-ventas",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter server dev\" \"pnpm --filter client dev\"",
+    "build": "pnpm --filter server build && pnpm --filter client build",
+    "dev:server": "pnpm --filter server dev",
+    "dev:client": "pnpm --filter client dev",
+    "db:generate": "pnpm --filter server db:generate",
+    "db:migrate": "pnpm --filter server db:migrate",
+    "db:push": "pnpm --filter server db:push",
+    "format": "prettier --write \"**/*.{ts,tsx,json}\"",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

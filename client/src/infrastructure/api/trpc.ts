@@ -8,7 +8,7 @@ export const trpc: ReturnType<typeof createTRPCReact<any>> & Record<string, any>
 export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: "http://localhost:3000/trpc",
+      url: import.meta.env.VITE_API_URL || "http://localhost:3000/trpc",
       transformer: superjson,
     }),
   ],

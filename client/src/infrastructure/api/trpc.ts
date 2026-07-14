@@ -1,9 +1,9 @@
 import { createTRPCReact } from "@trpc/react-query";
 import { httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
+import type { AppRouter } from "../../../../server/src/presentation/routers/index";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const trpc: ReturnType<typeof createTRPCReact<any>> & Record<string, any> = createTRPCReact<any>() as any;
+export const trpc = createTRPCReact<AppRouter>();
 
 export const trpcClient = trpc.createClient({
   links: [

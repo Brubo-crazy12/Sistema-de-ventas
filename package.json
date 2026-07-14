@@ -16,6 +16,7 @@
   "engines": {
     "node": ">=18"
   },
+  "packageManager": "pnpm@9.15.4",
   "dependencies": {
     "@vercel/node": "^5.8.23"
   }
